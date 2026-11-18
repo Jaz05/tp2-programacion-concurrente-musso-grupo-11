@@ -50,7 +50,7 @@ impl Monitor {
     }
 
     // Compara el tiempo desde el ultimo heartbeat y actualiza el estado de cada nodo
-    fn evaluar(&mut self) -> Vec<(i32, Salud)> {
+    fn comprobar_estados(&mut self) -> Vec<(i32, Salud)> {
         let mut cambios = vec![];
 
         for id in 1..=3 {
@@ -142,7 +142,7 @@ pub fn simular_fallos() -> i32 {
             Err(RecvTimeoutError::Disconnected) => break,
         }
 
-        for (id, estado) in monitor.evaluar() {
+        for (id, estado) in monitor.comprobar_estados() {
             let nombre = match estado {
                 Salud::Vivo => "Vivo",
                 Salud::Sospechoso => "Sospechoso",
